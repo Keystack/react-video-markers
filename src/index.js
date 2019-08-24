@@ -17,6 +17,7 @@ function VideoPlayer(props) {
   const {
     url,
     controls = ['play', 'time', 'progress', 'volume', 'full-screen'],
+    disableControls = false,
     height = '360px',
     width = '640px',
     isPlaying = false,
@@ -41,7 +42,6 @@ function VideoPlayer(props) {
     if (isPlaying) {
       playerEl.play();
     }
-
     return () => {
       playerEl.current.removeEventListener('timeupdate', handleProgress);
       playerEl.current.removeEventListener('durationchange', handleDurationLoaded);
@@ -149,7 +149,7 @@ function VideoPlayer(props) {
         videoWrap.msRequestFullscreen();
       }
     }
-    setIsFullScreen(!isFullScreen);
+    setIsFullScreen(fs => !fs);
   };
 
   const handleMarkerClick = marker => {
@@ -167,31 +167,33 @@ function VideoPlayer(props) {
         onClick={handlePlayerClick}>
         <source src={url} type="video/mp4"/>
       </video>
-      {isFullScreen ?
+      {isFullScreen &&
         <button
           className="react-video-close"
           onClick={handleFullScreenClick}>
           Close video
-        </button> : null
+        </button>
       }
-      <Controls
-        progressEl={progressEl}
-        volumeEl={volumeEl}
-        controls={controls}
-        isPlaying={isPlaying}
-        volume={volume}
-        currentTime={currentTime}
-        duration={videoDuration}
-        muted={muted}
-        markers={markers}
-        onPlayClick={onPlay}
-        onPauseClick={onPause}
-        onProgressClick={handleProgressClick}
-        onVolumeClick={handleVolumeClick}
-        onMuteClick={handleMuteClick}
-        onFullScreenClick={handleFullScreenClick}
-        onMarkerClick={handleMarkerClick}
-      />
+      { !disableControls &&
+        <Controls
+          progressEl={progressEl}
+          volumeEl={volumeEl}
+          controls={controls}
+          isPlaying={isPlaying}
+          volume={volume}
+          currentTime={currentTime}
+          duration={videoDuration}
+          muted={muted}
+          markers={markers}
+          onPlayClick={onPlay}
+          onPauseClick={onPause}
+          onProgressClick={handleProgressClick}
+          onVolumeClick={handleVolumeClick}
+          onMuteClick={handleMuteClick}
+          onFullScreenClick={handleFullScreenClick}
+          onMarkerClick={handleMarkerClick}
+        />
+      }
     </div>
   );
 }
