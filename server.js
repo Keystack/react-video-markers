@@ -9,7 +9,7 @@ new WebpackDevServer(webpack(config), {
     chunkModules: false,
     colors: true,
   },
-}).listen(3000, 'localhost', function (err) {
+}).listen(3002, 'localhost', function (err) {
   if (err) {
     console.log(err);
   }

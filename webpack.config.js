@@ -5,7 +5,7 @@ let entry = ['./example/index.js'];
 
 if (process.env.NODE_ENV === 'development') {
   entry = entry.concat([
-    'webpack-dev-server/client?http://localhost:3000',
+    'webpack-dev-server/client?http://localhost:3002',
     'webpack/hot/only-dev-server'
   ]);
 }

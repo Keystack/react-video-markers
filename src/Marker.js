@@ -1,4 +1,5 @@
 import React from 'react';
+import ToolTip from 'react-tooltip'
 
 function Marker(props) {
   const onMarkerClick = () => {
@@ -10,16 +11,19 @@ function Marker(props) {
   const {id, time, color, title} = marker;
 
   return (
-    <i
-      id={id}
-      className="react-video-marker"
-      title={title}
-      style={{
-        background: color,
-        left: duration ? `calc(${time / duration * 100}% - 2px)` : '-9999px'
-      }}
-      onClick={onMarkerClick}
-    />
+    <>
+      <i
+        id={id}
+        data-tip={title}
+        className="react-video-marker"
+        style={{
+          background: color,
+          left: duration ? `calc(${time / duration * 100}% - 2px)` : '-9999px'
+        }}
+        onClick={onMarkerClick}
+      />
+      <ToolTip place='top' />
+    </>
   );
 }
 
